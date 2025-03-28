@@ -5,7 +5,6 @@ import {
   CardContent,
   Typography,
   Button,
-  CardActions,
   Modal,
   Box,
   FormGroup,
@@ -14,6 +13,7 @@ import {
 } from "@mui/material";
 import { useBooking } from "../context/BookingContext";
 import { ModalContainerBox } from "../layouts/ModalStyles";
+import CardComponent from "./CardComponent";
 
 const BookingItem: React.FC<BookingItemProps> = ({ booking, movie }) => {
   const { cancelBooking, updateBookingSeats } = useBooking();
@@ -80,39 +80,13 @@ const BookingItem: React.FC<BookingItemProps> = ({ booking, movie }) => {
 
   return (
     <Box sx={{ flex: "1 1 300px" }}>
-      <Card
-        sx={{
-          maxWidth: 350,
-          mb: 2,
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            {movie.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Showtime: {new Date(movie.showtime).toLocaleString()}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Seats: {booking.seatNumbers.join(", ")}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Booking ID: {booking.id}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={handleOpenUpdateModal}>
-            Update Booking
-          </Button>
-          <Button size="small" color="secondary" onClick={handleCancel}>
-            Cancel Booking
-          </Button>
-        </CardActions>
-      </Card>
+      <CardComponent
+        movie={movie}
+        booking={booking}
+        bookButtonLabel={"Update Booking"}
+        handleOpen={handleOpenUpdateModal}
+        handleCancel={handleCancel}
+      ></CardComponent>
 
       <Modal
         open={isUpdateModalOpen}

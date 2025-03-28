@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { MovieCardProps } from "../types/movie";
 import {
-  Card,
-  CardContent,
   Typography,
   Button,
-  CardActions,
   Modal,
   Box,
   FormGroup,
@@ -13,6 +10,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { ModalContainerBox } from "../layouts/ModalStyles";
+import CardComponent from "./CardComponent";
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, onBook }) => {
   const [open, setOpen] = useState(false);
@@ -51,41 +49,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onBook }) => {
 
   return (
     <Box sx={{ flex: "1 1 300px" }}>
-      <Card
-        sx={{
-          maxWidth: 350,
-          mb: 2,
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {movie.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {movie.description}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            Showtime: {new Date(movie.showtime).toLocaleString()}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Available Seats: {availableSeats.length} / {movie.totalSeats}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            color="primary"
-            onClick={handleOpen}
-            disabled={availableSeats.length === 0}
-          >
-            Book Now
-          </Button>
-        </CardActions>
-      </Card>
+      <CardComponent
+        movie={movie}
+        availableSeats={availableSeats.length}
+        bookButtonLabel={"Book Now"}
+        handleOpen={handleOpen}
+      ></CardComponent>
 
       <Modal
         open={open}
