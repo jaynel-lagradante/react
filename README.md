@@ -1,3 +1,3 @@
 # react
 react assessment
-# npm run dev to run
+# 'npm run dev' to run
