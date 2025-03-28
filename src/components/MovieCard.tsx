@@ -50,8 +50,17 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onBook }) => {
   ).filter((seat) => !movie.bookedSeats.includes(seat));
 
   return (
-    <>
-      <Card sx={{ maxWidth: 345, mb: 2 }}>
+    <Box sx={{ flex: "1 1 300px" }}>
+      <Card
+        sx={{
+          maxWidth: 350,
+          mb: 2,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {movie.title}
@@ -131,7 +140,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onBook }) => {
           </Box>
         </ModalContainerBox>
       </Modal>
-    </>
+    </Box>
   );
 };
 

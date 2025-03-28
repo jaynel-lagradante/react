@@ -79,8 +79,17 @@ const BookingItem: React.FC<BookingItemProps> = ({ booking, movie }) => {
   );
 
   return (
-    <>
-      <Card sx={{ maxWidth: 345, mb: 2 }}>
+    <Box sx={{ flex: "1 1 300px" }}>
+      <Card
+        sx={{
+          maxWidth: 350,
+          mb: 2,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
             {movie.title}
@@ -156,7 +165,7 @@ const BookingItem: React.FC<BookingItemProps> = ({ booking, movie }) => {
           </Box>
         </ModalContainerBox>
       </Modal>
-    </>
+    </Box>
   );
 };
 
