@@ -1,48 +1,46 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import { Link } from "@tanstack/react-router";
 import { useAuth } from "../context/AuthContext";
 
 const Header: React.FC = () => {
-  const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-
-  const handleLogout = () => {
-    navigate("/logout");
-  };
+  const type = user?.type;
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+    <nav className="bg-blue-500 text-white py-4">
+      <div className="container mx-auto flex items-center justify-between">
+        <Link to="/" className="text-xl font-semibold">
           Movie Booking App
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        </Link>
+        <div className="flex items-center space-x-4">
           {isAuthenticated ? (
             <>
-              <Button color="inherit" component={Link} to="/home">
+              <Link to="/" className="hover:text-blue-200">
                 Home
-              </Button>
-              <Button color="inherit" component={Link} to="/my-bookings">
+              </Link>
+              <Link to="/bookings" className="hover:text-blue-200">
                 My Bookings
-              </Button>
-              <Button color="inherit" onClick={handleLogout}>
+              </Link>
+              {type === "admin" && (
+                <Link to="/admin" className="hover:text-blue-200">
+                  Admin
+                </Link>
+              )}
+              <Link to="/logout" className="hover:text-blue-200">
                 Logout
-              </Button>
+              </Link>
               {user && (
-                <Typography variant="subtitle1" color="inherit" sx={{ ml: 2 }}>
-                  Welcome, {user.username}!
-                </Typography>
+                <span className="text-sm">Welcome, {user.username}!</span>
               )}
             </>
           ) : (
-            <Button color="inherit" component={Link} to="/">
-              Login/Register
-            </Button>
+            <Link to="/Login" className="hover:text-blue-200">
+              Login
+            </Link>
           )}
-        </Box>
-      </Toolbar>
-    </AppBar>
+        </div>
+      </div>
+    </nav>
   );
 };
 

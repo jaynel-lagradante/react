@@ -1,14 +1,18 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
-interface AuthContextType {
+export type AuthContextType = {
   isAuthenticated: boolean;
-  login: (username: string, password?: string) => Promise<boolean>;
-  loginMock: () => void;
+  login: (
+    username: string,
+    type: string,
+    password?: string
+  ) => Promise<boolean>;
+  // loginMock: () => void;
   logout: () => Promise<void>;
-  user: { username: string } | null;
+  user: { username: string; type: string } | null;
   loadingAuth: boolean;
   authError: string | null;
-}
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -16,7 +20,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<{ username: string } | null>(null);
+  const [user, setUser] = useState<{ username: string; type: string } | null>(
+    null
+  );
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -30,28 +36,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setLoadingAuth(false);
   }, []);
 
-  const login = async (username: string): Promise<boolean> => {
+  const login = async (username: string, type: string): Promise<boolean> => {
     setLoadingAuth(true);
     setAuthError(null);
 
     return new Promise((resolve) => {
       setTimeout(() => {
         setIsAuthenticated(true);
-        setUser({ username });
+        setUser({ username, type });
         localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("user", JSON.stringify({ username }));
+        localStorage.setItem("user", JSON.stringify({ username, type }));
         resolve(true);
         setLoadingAuth(false);
       }, 1500);
     });
   };
 
-  const loginMock = () => {
-    setIsAuthenticated(true);
-    setUser({ username: "mockUser" });
-    localStorage.setItem("isAuthenticated", "true");
-    localStorage.setItem("user", JSON.stringify({ username: "mockUser" }));
-  };
+  // const loginMock = () => {
+  //   setIsAuthenticated(true);
+  //   setUser({ username: "mockUser", type: "user" });
+  //   localStorage.setItem("isAuthenticated", "true");
+  //   localStorage.setItem("user", JSON.stringify({ username: "mockUser" }));
+  // };
 
   const logout = async (): Promise<void> => {
     setLoadingAuth(true);
@@ -72,7 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         isAuthenticated,
         login,
-        loginMock,
+        // loginMock,
         logout,
         user,
         loadingAuth,

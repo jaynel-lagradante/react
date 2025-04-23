@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Typography, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const NotFoundPage: React.FC = () => {
+const NotFound: React.FC = () => {
   return (
     <Container
       maxWidth="md"
@@ -37,4 +37,4 @@ const NotFoundPage: React.FC = () => {
   );
 };
 
-export default NotFoundPage;
+export default NotFound;

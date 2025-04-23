@@ -1,10 +1,21 @@
-import React from "react";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useBooking } from "../context/BookingContext";
 import BookingItem from "../components/BookingItem";
 import { Box, Container, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 
-const MyBookingsPage: React.FC = () => {
+export const Route = createFileRoute("/bookings")({
+  component: RouteComponent,
+  beforeLoad: async ({ context }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({
+        to: "/login",
+      });
+    }
+  },
+});
+
+function RouteComponent() {
   const { bookings, movies } = useBooking();
   const { user } = useAuth();
 
@@ -31,6 +42,4 @@ const MyBookingsPage: React.FC = () => {
       </Box>
     </Container>
   );
-};
-
-export default MyBookingsPage;
+}

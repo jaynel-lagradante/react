@@ -1,10 +1,10 @@
 export interface Movie {
-  id: number;
+  id?: string;
   title: string;
   description: string;
   showtime: string;
   totalSeats: number;
-  bookedSeats: number[];
+  bookedSeats?: number[];
 }
 
 export interface MovieCardProps {

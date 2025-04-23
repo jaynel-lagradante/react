@@ -2,7 +2,7 @@ import { Movie } from "./movie";
 
 export interface Booking {
   id: string;
-  movieId: number;
+  movieId: string;
   username: string;
   seatNumbers: number[];
 }
